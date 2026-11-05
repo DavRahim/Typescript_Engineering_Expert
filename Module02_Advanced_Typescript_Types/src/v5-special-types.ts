@@ -15,7 +15,6 @@ const name: string = "mohammad";
 something2 = name;
 
 //* Nullish types
-
 interface User {
   name: string;
 }
@@ -25,7 +24,6 @@ type LoggedInUser = User | null;
 const currentUser: LoggedInUser = null;
 
 //* Unit types
-
 const greet = () => {
   console.log("Hello World");
 };

@@ -82,6 +82,7 @@ interface IManager extends IEmployee {
 department: string;
 }
 মনে রাখবে: দুটোই Object Structure define করতে পারে। তবে Interface declaration merging এবং extension সমর্থন করে। Type Alias Union, Intersection, Primitive এবং অন্যান্য type তৈরিতেও ব্যবহার করা যায়।
+
 4. Top Types (Any & Unknown)
 WHY: যখন কোনো variable-এর data type আগে থেকে নিশ্চিতভাবে জানা থাকে না।
 WHAT: any এবং unknown TypeScript-এর Top Types-এর উদাহরণ।
@@ -102,6 +103,7 @@ console.log(data.toUpperCase());
 }
 এখানে ব্যবহার করার আগে type check করতে হচ্ছে।
 মনে রাখবে: unknown সাধারণত any-এর তুলনায় বেশি নিরাপদ।
+
 5. Nullish Types
 WHY: যখন কোনো variable-এর value অনুপস্থিত বা intentionally empty থাকতে পারে।
 WHAT: null এবং undefined হলো Nullish Types।
@@ -114,6 +116,7 @@ username = "Fatima";
 পার্থক্য:
 null → ইচ্ছাকৃতভাবে কোনো value নেই।
 undefined → value assign করা হয়নি বা অনুপস্থিত।
+
 6. Unit Type (Void)
 WHY: কোনো function meaningful value return না করলে সেটি বোঝাতে।
 WHAT: void এমন একটি return type, যা বোঝায় function কোনো meaningful value return করছে না।
@@ -140,6 +143,7 @@ console.log(greetings);
 মনে রাখবে:
 void → meaningful return value নেই।
 undefined → নির্দিষ্টভাবে undefined value return করা হয়েছে।
+
 8. Bottom Type (Never)
 WHY: এমন function-এর return type নির্ধারণ করতে, যেটি কখনো স্বাভাবিকভাবে শেষ হয় না।
 WHAT: never হলো এমন একটি type, যার কোনো value নেই।
@@ -152,6 +156,7 @@ throw new Error(msg);
 const infiniteLoop = (): never => {
 while (true) {}
 };
+
 9. Type Assertion
 WHY: যখন developer কোনো value-এর type সম্পর্কে নিশ্চিত, কিন্তু TypeScript নিজে সেটি বুঝতে পারছে না।
 WHAT: TypeScript-কে কোনো value নির্দিষ্ট type হিসেবে বিবেচনা করতে বলা।
@@ -163,6 +168,7 @@ const emailInput = input as HTMLInputElement;
 console.log(emailInput.value);
 এখানে TypeScript-কে জানানো হচ্ছে যে input element-টি HTMLInputElement।
 মনে রাখবে: Type Assertion runtime-এ type পরিবর্তন বা validation করে না।
+
 10. Constant Assertion (as const)
 WHY: Object বা Array-এর value-কে নির্দিষ্ট Literal Type এবং readonly হিসেবে রাখতে।
 WHAT: as const ব্যবহার করলে TypeScript value-গুলোকে readonly literal type হিসেবে infer করে।
