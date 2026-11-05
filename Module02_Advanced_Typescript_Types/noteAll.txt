@@ -18,6 +18,7 @@ import → অন্য file থেকে code নিয়ে আসে।
 Side-effect Import:
 import "./v1-module-config";
 এখানে কোনো নির্দিষ্ট function import না করেও module-এর code execute হয়।
+
 2. Literal Type
 WHY: কোনো variable-এ যেন শুধু নির্দিষ্ট কিছু value assign করা যায়, তা নিশ্চিত করতে।
 WHAT: Literal Type হলো এমন একটি Type, যেখানে নির্দিষ্ট value-কে type হিসেবে ব্যবহার করা হয়।
@@ -32,6 +33,8 @@ applicationStatus = "approved";
 // Error
 applicationStatus = "completed";
 এখানে শুধু নির্ধারিত তিনটি value গ্রহণযোগ্য।
+
+
 3. Type Alias vs Interface
 WHY: একই Object Structure বারবার না লিখে reusable এবং maintainable code তৈরি করতে।
 WHAT:
