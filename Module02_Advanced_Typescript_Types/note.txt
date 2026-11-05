@@ -1,0 +1,203 @@
+🔥 TypeScript Module-2 | TypeScript Type Hierarchy | Understanding Types in TypeScript 🚀
+
+আজকে TypeScript Type Hierarchy এবং টাইপের বিভিন্ন ক্যাটাগরি নিয়ে যা শিখলাম, তা নিজের নোট হিসেবে সহজ ভাষায় শেয়ার করছি। TypeScript-এ নিরাপদ ও ক্লিন কোড লিখতে টাইপ হায়ারার্কি বোঝা অত্যন্ত জরুরি।
+
+একটি গুরুত্বপূর্ণ বিষয় মনে রাখা দরকার: any, unknown, void, undefined, null, never — এগুলো কিন্তু একে অপরের বিকল্প নয়, এদের কাজ সম্পূর্ণ আলাদা।
+
+চলুন ধাপে ধাপে বিষয়গুলো বুঝে নেওয়া যাক! 👇
+
+1️⃣ Top Types
+
+TypeScript-এ Top Type বলতে বোঝায় এমন টাইপ যা যে কোনো ধরনের Value গ্রহণ করতে পারে। TypeScript-এ ২টি প্রধান Top Type রয়েছে:
+
+any
+unknown
+
+A. any
+
+any ব্যবহার করলে TypeScript তার Type Checking সম্পূর্ণ বন্ধ করে দেয়।
+
+// any টাইপে যে কোনো Value রাখা যায়
+
+let helloWorld: any = "Hello World";
+helloWorld = 123;
+helloWorld = true;
+
+// Type Check ছাড়া সরাসরি Property Access করা যায়
+
+console.log(helloWorld.length);
+
+💡 ব্যাখ্যা:
+
+any ব্যবহার করলে TypeScript-এর Type Safety নষ্ট হয়ে যায় এবং Runtime Error হওয়ার ঝুঁকি তৈরি হয়। তাই প্রয়োজন ছাড়া any ব্যবহার করা উচিত নয়।
+
+B. unknown
+
+unknown হলো any-এর একটি Type-safe বিকল্প।
+
+// unknown-এও যে কোনো Value রাখা যায়
+
+let something: unknown = "Hello World";
+something = 123;
+something = true;
+
+// সরাসরি Property Access করতে দেয় না (Compile Error)
+
+// console.log(something.length);
+
+// আগে Type Check করে নিশ্চিত হতে হয়
+
+if (typeof something === "string") {
+console.log(something.length); // Safe!
+}
+
+💡 ব্যাখ্যা:
+
+unknown টাইপে যে কোনো মান রাখা গেলেও টাইপ নিশ্চিত না হয়ে সরাসরি তা ব্যবহার করা যায় না। তাই any-এর তুলনায় unknown ব্যবহার করা অনেক বেশি নিরাপদ।
+
+2️⃣ Core Types (Primitive Types)
+
+JavaScript ও TypeScript-এর মৌলিক ডেটা টাইপগুলোকে Primitive Types বলা হয়।
+
+const name: string = "Monir"; // Text/String
+const age: number = 25; // Number
+const isDeveloper: boolean = true; // Boolean (true/false)
+const bigNumber: bigint = 123456789n; // BigInt
+const uniqueId: symbol = Symbol("id"); // Unique Identifier
+
+3️⃣ Nullish Types
+
+Value-এর অনুপস্থিতি (absence of value) বোঝাতে Nullish Types ব্যবহার করা হয়।
+
+null
+undefined
+
+interface User {
+name: string;
+}
+
+// User Object হতে পারে অথবা null হতে পারে
+
+type LoggedInUser = User | null;
+const currentUser: LoggedInUser = null;
+let userName: string | undefined = undefined;
+
+💡 ব্যাখ্যা:
+
+null 👉 ইচ্ছাকৃতভাবে কোনো মান খালি রাখা বা না থাকা বোঝায়।
+undefined 👉 কোনো মান এখনো সেট করা হয়নি বা অনুপস্থিত বোঝায়।
+
+4️⃣ Literal Types
+
+General Type-এর পরিবর্তে নির্দিষ্ট কোনো Exact Value ফিক্স করে দিতে Literal Types ব্যবহার করা হয়।
+
+// String Literal Type
+
+type Status = "pending" | "success" | "failed";
+let orderStatus: Status = "pending";
+
+// Number Literal Type
+
+type DiceValue = 1 | 2 | 3 | 4 | 5 | 6;
+let dice: DiceValue = 5;
+
+// Boolean Literal Type
+
+type IsActive = true;
+const active: IsActive = true;
+
+💡 ব্যাখ্যা:
+
+সাধারণ string টাইপ দিলে যে কোনো টেক্সট বসানো যায়, কিন্তু Literal Type ব্যবহার করলে আপনি যে মানগুলো ফিক্স করে দেবেন (যেমন: "pending", "success", "failed"), তার বাইরে অন্য কিছু ব্যবহার করা যাবে না।
+
+5️⃣ Void Type
+
+ফাংশন থেকে কোনো অর্থপূর্ণ মান রিটার্ন না হলে (absence of return value) তার Type হয় void।
+
+const greet = (): void => {
+console.log("Hello World");
+};
+
+greet();
+
+💡 ব্যাখ্যা:
+
+ফাংশনটি যদি শুধু কোনো কাজ করে (যেমন: Console Log করা) কিন্তু কোনো Value Return না করে, তবে তার Return Type হবে void।
+
+6️⃣ Undefined Type (Unit Type)
+
+undefined নিজেই একটি নির্দিষ্ট Value এবং টাইপ।
+
+const anotherGreet = (): undefined => {
+console.log("Hello World");
+return undefined; // স্পষ্টভাবে undefined রিটার্ন করতে হবে
+
+};
+
+const greetings: undefined = anotherGreet();
+console.log(greetings);
+
+💡 ব্যাখ্যা:
+
+void এবং undefined এক জিনিস নয়! void বোঝায় ফাংশন কোনো Value Return করছে না, আর undefined Return Type দিলে ফাংশন থেকে Explicitly undefined Return করতে হয়।
+
+7️⃣ Never Type (Bottom Type)
+
+never টাইপ নির্দেশ করে এমন একটি Value যা কখনো ঘটবে না বা তৈরি হবে না। এটি মূলত এমন ফাংশনে ব্যবহার করা হয় যা কখনো স্বাভাবিকভাবে শেষ হয় না বা সবসময় Error Throw করে।
+
+Example 1: Throwing an Error
+
+const getError = (msg: string): never => {
+throw new Error(msg);
+};
+
+// never টাইপ সব টাইপের Subtype, তাই এটি অন্য টাইপে assign করা যায়
+
+const result: number = getError("Something went wrong");
+
+Example 2: Infinite Loop
+
+const infiniteLoop = (): never => {
+while (true) {
+console.log("Running...");
+}
+};
+
+💡 ব্যাখ্যা:
+
+never মানে এমন কোনো স্টেট বা ভ্যালু যা পাওয়া অসম্ভব। কারণ ফাংশনটি হয় কোনো Error দিয়ে থেমে যাচ্ছে অথবা Infinite Loop-এ আটকে থাকছে।
+
+📊 Quick Type Hierarchy Summary
+
+Type Category
+
+Top Types:
+any, unknown
+Core Primitives
+string, number, boolean, bigint, symbol
+
+Literal Types:
+"admin", "pending", 123, true
+
+Nullish Types:
+null, undefined
+
+Void Type:
+void
+
+Bottom Type:
+never
+
+📌 Summary Reminders:
+
+any 👉 Type checking বন্ধ করে দেয়।
+unknown 👉 Type checking ছাড়া ব্যবহার করা যায় না (Safe)।
+Primitive Types 👉 মৌলিক ডেটা ভ্যালু প্রকাশ করে।
+Literal Types 👉 নির্দিষ্ট কিছু ভ্যালুতে সীমাবদ্ধ রাখে।
+null & undefined 👉 ভ্যালুর অনুপস্থিতি প্রকাশ করে।
+void 👉 ফাংশনে কোনো অর্থপূর্ণ রিটার্ন ভ্যালু নেই।
+never 👉 এমন ভ্যালু যা কখনো শেষ/উৎপন্ন হয় না।
+
+💡 Learning Tip:
+
+পড়াশোনার সময় প্রথমে any vs unknown, তারপর null vs undefined, এবং সবশেষে void vs never-এর পার্থক্যগুলো নিজে কোড লিখে প্র্যাকটিস করা উচিত।

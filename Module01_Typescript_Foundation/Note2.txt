@@ -1,0 +1,188 @@
+🔥 TypeScript Module-1 + Extra Practice Summary! 🚀
+আসসালামু আলাইকুম সবাইকে! 👋 আজকে TypeScript-এর Module-1 শেষ করে নিজে থেকে আরও কিছু এডভান্সড বিষয় প্র্যাকটিস করলাম। শেখা বিষয়গুলো সুন্দরভাবে এক নজরে নোট করে রাখলাম, যেন রিভিশন দিতে সুবিধা হয়।
+নিচে আমার প্র্যাকটিস করা মূল কনসেপ্টগুলোর একটি সারাংশ শেয়ার করছি:
+📌 ১. Basic & Primitive Types:
+Primitives: string, number, boolean, symbol, bigint.
+Array & Readonly Tuple: যেমন ঢাকা সিটির Coordinate ধরে রাখার জন্য Strict Immutability সহ Tuple টাইপ প্র্যাকটিস করেছি।
+📌 ২. Functions & Variations:
+Implicit Return: এক লাইনে ক্লিন ও সংক্ষিপ্ত এরো ফাংশন।
+Explicit Function Type: ফাংশনের টাইপ আগে আলাদা করে ডিফাইন করে ব্যবহার করা।
+Rest Parameters: একাধিক আর্গুমেন্ট নিয়ে কাজ করার জন্য ...numbers: number[] ব্যবহার।
+Currying Pattern: ফাংশনাল প্রোগ্রামিংয়ের মাধ্যমে ফাংশন চেইনিং করা (Arrow function দিয়ে এক লাইনে লেখা)।
+Optional, Default & Rest Parameters: ফ্ল্যাক্সিবল প্যারামিটার হ্যান্ডলিং।
+Void Function: রিটার্ন না করা ফাংশনের জন্য টাইপিং।
+📌 ৩. Object, Type Alias & Interface:
+type এবং interface ব্যবহার করে কাস্টম অবজেক্ট স্ট্রাকচার তৈরি করা।
+Nested Object (যেমন: Address) হ্যান্ডলিং।
+📌 ৪. Advanced Types & Concepts:
+Union Type (|): একই সাথে একাধিক টাইপ অ্যালাউ করা (Type Guard দিয়ে চেক করে অপারেশান করা)।
+Intersection Type (&): একাধিক অবজেক্ট টাইপকে কম্বাইন করে নতুন টাইপ বানানো।
+Type Assertion (as): কম্পাইলারকে ম্যানুয়ালি নিশ্চিত করা যে Data Type কী হবে (HTMLInputElement বা Object mapping-এর ক্ষেত্রে)।
+Generics (<T>): রি-ইউজেবল এবং ডায়নামিক টাইপ সেফ ফাংশন তৈরি করা।
+
+// Types:
+let myString: string = 'Programming Hero';
+let myNumber: number = 23444;
+let myBoolean: boolean = true;
+let mySymbol: symbol = Symbol();
+let myBigInt: bigint = 122n;
+
+// ১. Implicit Return (সবচেয়ে ক্লিন ও সংক্ষিপ্ত উপায়)
+const addTwo = (a: number, b: number): number => a + b;
+
+addTwo(1, 4);
+
+// ২. Explicit Function Type (টাইপ আলাদা করে রাখা)
+type AddTwoFn = (a: number, b: number) => number;
+
+const addTwo1: AddTwoFn = (a, b) => {
+return a + b;
+};
+
+addTwo1(1, 4);
+
+// ৩. Rest Parameters সহ (দুইয়ের অধিক সংখ্যা যোগ করার জন্য)
+const addNumbers = (...numbers: number[]): number => {
+return numbers.reduce((acc, curr) => acc + curr, 0);
+};
+
+addNumbers(1, 3, 4, 10);
+
+// ৪. Readonly Tuple দিয়ে Strict Immutability
+type TwoNumbers = readonly [a: number, b: number];
+
+const addTwo2 = ([a, b]: TwoNumbers) => a + b;
+
+addTwo2([1, 4]);
+
+// ৫. Currying Pattern (ফাংশনাল প্রোগ্রামিং টেকনিক)
+const add = (a: number) => {
+return (b: number) => {
+return (c: number): number => {
+return a + b + c;
+};
+};
+};
+
+console.log(add(2)(3)(4));
+
+// Arrow Function দিয়ে এক লাইনে লেখা যায়:
+const add1 =
+(a: number) =>
+(b: number) =>
+(c: number): number =>
+a + b + c;
+
+const addOne = add1(1)(2)(3);
+
+// ৬. Array Type Declaration
+const arr: string[] = ['Programming', 'Hero'];
+const numArr: number[] = [1, 23, 4, 56];
+const boolArr: Array<boolean> = [true, false, true];
+const dhakaLatLong: readonly [number, number] = [23.8103, 90.4125];
+
+// ৭. Optional , default and rest parameters
+const concatName = (firstName: string, lastName?: string): string => {
+if (!lastName) {
+return firstName;
+}
+
+return firstName + ' ' + lastName;
+};
+
+console.log(concatName('Monir'));
+
+// ৮. Void Function
+const greetings = (greeting: string, fullName = 'Guest'): void => {
+console.log(`${greeting} + " " + ${fullName}`);
+};
+greetings('Hello', 'Monir');
+
+// ৯. Object type, type alias and interface
+type UserName = string;
+type Address = {
+streetName: string;
+cityName: string;
+holdingNumber: number;
+};
+
+type TUser = {
+name: UserName;
+age: number;
+isActive: boolean;
+action: () => void;
+badges: string[];
+address?: Address;
+};
+
+interface IUser {
+name: string;
+age: number;
+isActive: boolean;
+action: () => void;
+badges: string[];
+address?: Address;
+}
+
+const user: TUser = {
+name: 'Monir',
+age: 23,
+isActive: true,
+action: () => {},
+badges: ['Admin', 'Moderator'],
+address: {
+streetName: '123 Main st',
+cityName: 'Dhaka',
+holdingNumber: 123
+}
+};
+
+// ১০. Union Type
+const addOrConcat = (a: number | string, b: number | string): number | string => {
+if (typeof a === 'number' && typeof b === 'number') {
+return a + b;
+}
+return a.toString() + b.toString();
+};
+
+addOrConcat(1, 2);
+
+// ১১. Intersection Type
+type Person = {
+name: string;
+age: number;
+};
+
+type Employee = {
+company: string;
+salary: number;
+};
+
+type EmployeeDetails = Person & Employee;
+
+const employee: EmployeeDetails = {
+name: 'Monir',
+age: 23,
+company: 'Programming Hero',
+salary: 50000
+};
+
+console.log(employee.age);
+
+// ১২. Type Assertion
+const inputElement = document.getElementById('username-input') as HTMLInputElement;
+const employeeName = (employee as Person).name;
+console.log(employeeName);
+
+// ১৩. Generics
+const getArray = <T>(items: T[]): T[] => {
+return new Array().concat(items);
+};
+
+getArray<number>([1, 2, 3, 4]);
+
+
+প্র্যাকটিস চালিয়ে যাচ্ছি, সবাই দোয়া করবেন! 💻✨
+শেখা বা কোডে কোনো ভুলত্রুটি চোখে পড়লে অবশ্যই গঠনমূলক
+মতামত (Feedback) দিয়ে সাহায্য করবেন।
+Happy Coding! ☕🔥

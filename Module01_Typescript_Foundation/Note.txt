@@ -1,0 +1,271 @@
+1-0: Module Introduction
+-> 3.Question new technology learning
+1.why 
+2.what
+3.how
+
+1-1: Why do we need TypeScript ?
+//Javascript Problem why typeScript ?
+
+const addTow = (a,b) => {
+    return a + b
+}
+
+console.log(addTwo("10", 20));
+
+const user = {
+    name: "Rahim"
+}
+
+console.log(user.address)
+console.log(user.address.city)
+
+// javascript coercion;
+// value type;
+
+-> Static Type;
+C# -----> Javascript;
+
+
+1-3: How TypeScript works under the hood?
+
+compiler -> computer learn binary 0101010;
+
+
+1-4: Development environment setup
+1.vs code 
+2.node
+
+
+1-5: Basic types in TypeScript
+
+
+
+TypeScript Module 1;
+
+1. TypeScript কী?
+
+WHY — কেন প্রয়োজন?
+JavaScript-এ একটি variable-এ যেকোনো ধরনের value রাখা যায়। ফলে ভুল data type ব্যবহার করলে runtime-এ error হতে পারে।
+
+function add(a, b) {
+return a + b;
+}
+
+add(10, "20"); // "1020"
+এখানে আমরা হয়তো ৩০ আশা করেছিলাম, কিন্তু পেয়েছি "1020"।
+
+WHAT — TypeScript কী?
+TypeScript হলো JavaScript-এর উপর ভিত্তি করে তৈরি একটি programming language, যেখানে static type system যুক্ত করা হয়েছে।
+এটি JavaScript code-কে type-check করতে সাহায্য করে।
+
+HOW — কীভাবে কাজ করে?
+
+function add(a: number, b: number): number {
+return a + b;
+}
+
+add(10, 20); // 30
+add(10, "20"); // Type Error
+
+TypeScript compile-time-এ ভুলটি শনাক্ত করতে পারে।
+TypeScript Workflow
+TypeScript Code (.ts)
+Types + JavaScript logic
+Type Checking
+TypeScript checks type errors
+JavaScript Output (.js)
+Types are removed during compilation
+JavaScript Runtime
+Browser / Node.js executes JavaScript
+
+মনে রাখবে: TypeScript runtime-এ JavaScript-এর মতোই চলে। TypeScript নিজে runtime type safety নিশ্চিত করে না।
+
+2. Type Annotation
+WHY: ভুল data type assign করা থেকে developer-কে আগেই সতর্ক করা।
+WHAT: Variable, parameter বা return value-এর type স্পষ্টভাবে উল্লেখ করাকে Type Annotation বলে।
+HOW:
+let username: string = "Fatima";
+let age: number = 25;
+let isDeveloper: boolean = true;
+
+age = "Twenty"; // Error
+এখানে : string, : number, : boolean হলো Type Annotation।
+3. Type Inference
+WHY: সব জায়গায় বারবার type লিখতে হয় না।
+WHAT: TypeScript যখন initial value দেখে নিজে থেকেই type বুঝে নেয়, সেটি Type Inference।
+HOW:
+let name = "Fatima";
+let age = 25;
+
+name = "Khatun"; // Valid
+age = "Twenty"; // Error
+TypeScript নিজেই বুঝে নিয়েছে:
+name হলো string
+age হলো number
+4. Primitive Types
+WHY: প্রতিটি variable কী ধরনের data ধারণ করবে তা নির্ধারণ করতে।
+WHAT: JavaScript-এর মৌলিক data type-এর TypeScript representation।
+HOW:
+let name: string = "Fatima";
+let age: number = 25;
+let active: boolean = true;
+let empty: null = null;
+let notDefined: undefined = undefined;
+5. Array & Tuple
+WHY: একই ধরনের অথবা নির্দিষ্ট structure-এর একাধিক data সঠিকভাবে সংরক্ষণ করতে।
+WHAT:
+Array: একাধিক value-এর collection।
+Tuple: নির্দিষ্ট position অনুযায়ী নির্দিষ্ট type-এর collection।
+HOW:
+// Array
+let skills: string[] = ["React", "Next.js", "TypeScript"];
+
+// Tuple
+let user: [string, number] = ["Fatima", 25];
+Array-তে একই type-এর একাধিক value রাখা যায়। Tuple-তে position অনুযায়ী type নির্ধারিত থাকে।
+6. Union Type
+WHY: একটি variable-এ একাধিক সম্ভাব্য type-এর value গ্রহণ করতে দিতে।
+WHAT: | ব্যবহার করে একাধিক type-এর মধ্যে যেকোনো একটি গ্রহণ করার ব্যবস্থা।
+HOW:
+let id: string | number;
+
+id = 101;
+id = "USER-101";
+
+id = true; // Error
+7. Type Alias
+WHY: একই ধরনের complex type বারবার না লিখে পুনরায় ব্যবহার করতে।
+WHAT: একটি type-এর জন্য নিজের পছন্দমতো নাম তৈরি করা।
+HOW:
+type User = {
+name: string;
+age: number;
+email: string;
+};
+
+const user: User = {
+name: "Fatima",
+age: 25,
+email: "fatima@example.com",
+};
+এখন User type অন্য জায়গাতেও ব্যবহার করতে পারবে।
+8. Interface
+WHY: Object-এর structure নির্ধারণ করতে এবং বড় application-এ code maintainable রাখতে।
+WHAT: Interface হলো object-এর structure বা contract নির্ধারণ করার একটি উপায়।
+HOW:
+interface Product {
+name: string;
+price: number;
+available: boolean;
+}
+
+const product: Product = {
+name: "Laptop",
+price: 50000,
+available: true,
+};
+Type Alias এবং Interface দুটোই object structure define করতে পারে। তবে Interface declaration merging এবং extension-এর মতো কিছু অতিরিক্ত সুবিধা দেয়।
+9. Function Types
+WHY: Function-এর input এবং output-এর type নিশ্চিত করতে।
+WHAT: Function-এর parameter ও return value-এর type নির্ধারণ করা।
+HOW:
+function calculateTotal(
+price: number,
+quantity: number
+): number {
+return price * quantity;
+}
+
+calculateTotal(100, 5); // 500
+এখানে:
+price: number → input type
+quantity: number → input type
+: number → return type
+10. Optional & Default Parameters
+WHY: Function-এ কিছু parameter বাধ্যতামূলক না রেখে flexible করতে।
+WHAT:
+Optional parameter: দেওয়া বাধ্যতামূলক নয়।
+Default parameter: value না দিলে নির্দিষ্ট default value ব্যবহার হয়।
+HOW:
+function greet(name: string, age?: number) {
+console.log(name, age);
+}
+
+greet("Fatima");
+greet("Fatima", 25);
+Default parameter:
+function welcome(name: string = "Guest") {
+return `Welcome ${name}`;
+}
+
+welcome(); // Welcome Guest
+11. Type Narrowing
+WHY: Union type ব্যবহার করলে নির্দিষ্ট সময়ে কোন type-এর value নিয়ে কাজ করছি তা নিশ্চিত করতে।
+WHAT: Condition ব্যবহার করে একটি variable-এর সম্ভাব্য type সীমিত করাকে Type Narrowing বলে।
+HOW:
+function printId(id: string | number) {
+if (typeof id === "string") {
+console.log(id.toUpperCase());
+} else {
+console.log(id.toFixed(2));
+}
+}
+এখানে typeof condition অনুযায়ী TypeScript বুঝতে পারে id string নাকি number।
+12. Generics
+WHY: একই function বা component বিভিন্ন data type-এর জন্য ব্যবহার করতে, type safety বজায় রেখে।
+WHAT: Generic হলো reusable type parameter ব্যবস্থা।
+HOW:
+function identity<T>(value: T): T {
+return value;
+}
+
+identity<string>("Fatima");
+identity<number>(100);
+identity<boolean>(true);
+এখানে T একটি placeholder type। ব্যবহারের সময় TypeScript নির্দিষ্ট type বুঝতে পারে।
+13. Enum
+WHY: নির্দিষ্ট কিছু constant value এক জায়গায় সংগঠিত রাখতে।
+WHAT: Enum হলো named constants-এর একটি group।
+HOW:
+enum Status {
+Pending,
+Approved,
+Rejected,
+}
+
+let orderStatus: Status = Status.Approved;
+14. Type Assertion
+WHY: কোনো value-এর type সম্পর্কে developer নিশ্চিত থাকলে TypeScript-কে সেই ধারণা জানাতে।
+WHAT: TypeScript-কে নির্দিষ্ট type হিসেবে value বিবেচনা করতে বলা।
+HOW:
+const input = document.getElementById("email")
+as HTMLInputElement;
+
+console.log(input.value);
+মনে রাখবে: Type Assertion runtime-এ type পরিবর্তন বা validation করে না।
+15. Real-world React / Next.js Example
+তোমার React ও Next.js development-এ TypeScript কীভাবে কাজে লাগে, সেটি দেখো।
+interface UserCardProps {
+name: string;
+role: string;
+experience: number;
+}
+
+function UserCard({
+name,
+role,
+experience,
+}: UserCardProps) {
+return (
+<div>
+<h2>{name}</h2>
+<p>{role}</p>
+<p>{experience} years experience</p>
+</div>
+);
+}
+
+export default UserCard;
+এখানে UserCard component শুধু নির্দিষ্ট type-এর props গ্রহণ করবে।
+ভুল type দিলে development-এর সময় TypeScript error দেখাবে।
