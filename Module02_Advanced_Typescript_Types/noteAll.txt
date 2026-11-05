@@ -1,0 +1,351 @@
+TypeScript Module 2 🚀
+Advanced TypeScript Core Concepts
+1. Module System (Import & Export)
+WHY: বড় application-এর code একাধিক file-এ ভাগ করে maintainable এবং reusable রাখতে।
+WHAT: Import ও Export ব্যবহার করে একাধিক file-এর মধ্যে code share করার পদ্ধতিকে Module System বলে।
+HOW:
+// greetings.ts
+export const greetings = () => {
+console.log("Hello Programming Hero");
+};
+// main.ts
+import { greetings } from "./greetings";
+
+greetings();
+এখানে:
+export → অন্য file-এ code ব্যবহার করার সুযোগ দেয়।
+import → অন্য file থেকে code নিয়ে আসে।
+Side-effect Import:
+import "./v1-module-config";
+এখানে কোনো নির্দিষ্ট function import না করেও module-এর code execute হয়।
+2. Literal Type
+WHY: কোনো variable-এ যেন শুধু নির্দিষ্ট কিছু value assign করা যায়, তা নিশ্চিত করতে।
+WHAT: Literal Type হলো এমন একটি Type, যেখানে নির্দিষ্ট value-কে type হিসেবে ব্যবহার করা হয়।
+HOW:
+type Status = "pending" | "approved" | "rejected";
+
+let applicationStatus: Status;
+
+applicationStatus = "pending";
+applicationStatus = "approved";
+
+// Error
+applicationStatus = "completed";
+এখানে শুধু নির্ধারিত তিনটি value গ্রহণযোগ্য।
+3. Type Alias vs Interface
+WHY: একই Object Structure বারবার না লিখে reusable এবং maintainable code তৈরি করতে।
+WHAT:
+Type Alias → type keyword দিয়ে custom type তৈরি করা।
+Interface → Object-এর structure বা contract নির্ধারণ করা।
+HOW:
+Type Alias:
+type TUser = {
+id: number;
+name: string;
+role: string;
+};
+
+const user: TUser = {
+id: 123,
+name: "Fatima",
+role: "admin",
+};
+Interface:
+interface IUser {
+id: number;
+name: string;
+role: string;
+}
+
+const user: IUser = {
+id: 123,
+name: "Fatima",
+role: "admin",
+};
+Type Alias Extension:
+type TEmployee = {
+name: string;
+};
+
+type TManager = TEmployee & {
+department: string;
+};
+Interface Extension:
+interface IEmployee {
+name: string;
+}
+
+interface IManager extends IEmployee {
+department: string;
+}
+মনে রাখবে: দুটোই Object Structure define করতে পারে। তবে Interface declaration merging এবং extension সমর্থন করে। Type Alias Union, Intersection, Primitive এবং অন্যান্য type তৈরিতেও ব্যবহার করা যায়।
+4. Top Types (Any & Unknown)
+WHY: যখন কোনো variable-এর data type আগে থেকে নিশ্চিতভাবে জানা থাকে না।
+WHAT: any এবং unknown TypeScript-এর Top Types-এর উদাহরণ।
+HOW:
+Any:
+let value: any = "Hello World";
+
+value = 123;
+value = true;
+
+value.toUpperCase();
+এখানে any Type Checking অনেকটাই বন্ধ করে দেয়।
+Unknown:
+let data: unknown = "Hello World";
+
+if (typeof data === "string") {
+console.log(data.toUpperCase());
+}
+এখানে ব্যবহার করার আগে type check করতে হচ্ছে।
+মনে রাখবে: unknown সাধারণত any-এর তুলনায় বেশি নিরাপদ।
+5. Nullish Types
+WHY: যখন কোনো variable-এর value অনুপস্থিত বা intentionally empty থাকতে পারে।
+WHAT: null এবং undefined হলো Nullish Types।
+HOW:
+const currentUser: null = null;
+
+let username: string | null = null;
+
+username = "Fatima";
+পার্থক্য:
+null → ইচ্ছাকৃতভাবে কোনো value নেই।
+undefined → value assign করা হয়নি বা অনুপস্থিত।
+6. Unit Type (Void)
+WHY: কোনো function meaningful value return না করলে সেটি বোঝাতে।
+WHAT: void এমন একটি return type, যা বোঝায় function কোনো meaningful value return করছে না।
+HOW:
+const greet = (): void => {
+console.log("Hello World");
+};
+
+greet();
+এখানে function শুধু message print করছে, কোনো value return করছে না।
+7. Undefined Return Type
+WHY: কোনো function নির্দিষ্টভাবে undefined return করবে, তা বোঝাতে।
+WHAT: undefined হলো JavaScript-এর একটি primitive value এবং TypeScript-এর একটি type।
+HOW:
+const anotherGreet = (): undefined => {
+console.log("Hello World");
+
+return undefined;
+};
+
+const greetings = anotherGreet();
+
+console.log(greetings);
+মনে রাখবে:
+void → meaningful return value নেই।
+undefined → নির্দিষ্টভাবে undefined value return করা হয়েছে।
+8. Bottom Type (Never)
+WHY: এমন function-এর return type নির্ধারণ করতে, যেটি কখনো স্বাভাবিকভাবে শেষ হয় না।
+WHAT: never হলো এমন একটি type, যার কোনো value নেই।
+HOW:
+const getError = (msg: string): never => {
+throw new Error(msg);
+};
+এখানে function error throw করে এবং স্বাভাবিকভাবে return করে না।
+আরেকটি উদাহরণ:
+const infiniteLoop = (): never => {
+while (true) {}
+};
+9. Type Assertion
+WHY: যখন developer কোনো value-এর type সম্পর্কে নিশ্চিত, কিন্তু TypeScript নিজে সেটি বুঝতে পারছে না।
+WHAT: TypeScript-কে কোনো value নির্দিষ্ট type হিসেবে বিবেচনা করতে বলা।
+HOW:
+const input = document.getElementById("email");
+
+const emailInput = input as HTMLInputElement;
+
+console.log(emailInput.value);
+এখানে TypeScript-কে জানানো হচ্ছে যে input element-টি HTMLInputElement।
+মনে রাখবে: Type Assertion runtime-এ type পরিবর্তন বা validation করে না।
+10. Constant Assertion (as const)
+WHY: Object বা Array-এর value-কে নির্দিষ্ট Literal Type এবং readonly হিসেবে রাখতে।
+WHAT: as const ব্যবহার করলে TypeScript value-গুলোকে readonly literal type হিসেবে infer করে।
+HOW:
+const configuration = {
+port: 8080,
+prefix: "/api/v2",
+} as const;
+এখন:
+port → 8080
+prefix → "/api/v2"
+configuration.port = 3000;
+
+// Error: Cannot assign to readonly property
+11. typeof Operator
+WHY: কোনো value-এর runtime type পরীক্ষা করতে।
+WHAT: typeof হলো JavaScript-এর একটি operator, যা value-এর type সম্পর্কে string return করে।
+HOW:
+let x = 123;
+
+console.log(typeof x); // "number"
+
+console.log(typeof "Hello"); // "string"
+console.log(typeof true); // "boolean"
+12. Type Guard & Type Narrowing
+WHY: Union Type-এর মধ্যে কোন নির্দিষ্ট type নিয়ে কাজ করছি, তা নিশ্চিত করতে।
+WHAT: Condition ব্যবহার করে variable-এর সম্ভাব্য type সীমিত করাকে Type Narrowing বলে। Type Guard এর জন্য বিভিন্ন check ব্যবহার করা যায়।
+HOW:
+const print = (value: string | number) => {
+if (typeof value === "string") {
+return value.toUpperCase();
+} else {
+return value;
+}
+};
+
+print("fatima");
+print(123);
+এখানে typeof ব্যবহার করে Type Narrowing করা হয়েছে।
+13. Equality Narrowing
+WHY: দুটি value সমান কি না অথবা কোনো value null কি না যাচাই করে type narrow করতে।
+WHAT: === এবং !== ব্যবহার করে TypeScript-এর type narrowing করা।
+HOW:
+function compare(
+x: string | number,
+y: string | number
+) {
+if (x === y) {
+console.log(x, y);
+}
+}
+14. in Operator
+WHY: কোনো Object-এর মধ্যে নির্দিষ্ট property আছে কি না যাচাই করতে।
+WHAT: in operator property existence check করে এবং Type Narrowing-এ সাহায্য করে।
+HOW:
+type Bird = {
+fly: () => void;
+};
+
+type Fish = {
+swim: () => void;
+};
+
+function move(animal: Bird | Fish) {
+if ("fly" in animal) {
+animal.fly();
+} else {
+animal.swim();
+}
+}
+15. instanceof Operator
+WHY: কোনো Object নির্দিষ্ট Class-এর instance কি না যাচাই করতে।
+WHAT: instanceof হলো JavaScript-এর একটি runtime operator।
+HOW:
+const showDate = (x: string | Date) => {
+if (x instanceof Date) {
+console.log(x.toISOString());
+return;
+}
+
+const date = new Date(x);
+
+console.log(date.toISOString());
+};
+
+showDate("12-16-1971");
+showDate(new Date());
+16. Discriminated Union
+WHY: একাধিক Object Type-এর মধ্যে কোন নির্দিষ্ট Object নিয়ে কাজ করছি তা শনাক্ত করতে।
+WHAT: Common Literal Property ব্যবহার করে Union Type narrow করার পদ্ধতি।
+HOW:
+type Circle = {
+kind: "circle";
+radius: number;
+};
+
+type Square = {
+kind: "square";
+sideLength: number;
+};
+
+type Shape = Circle | Square;
+
+const getArea = (shape: Shape) => {
+if (shape.kind === "circle") {
+console.log(Math.PI * shape.radius ** 2);
+} else {
+console.log(shape.sideLength ** 2);
+}
+};
+এখানে kind হলো Discriminant Property।
+17. Generics
+WHY: একই Function বা Component বিভিন্ন Data Type-এর জন্য ব্যবহার করতে, Type Safety বজায় রেখে।
+WHAT: Generic হলো reusable type parameter ব্যবস্থা।
+HOW:
+function identity<T>(value: T): T {
+return value;
+}
+
+identity<string>("Fatima");
+identity<number>(100);
+identity<boolean>(true);
+এখানে:
+T → Generic Type Parameter।
+value: T → Input Type।
+: T → Return Type।
+আরেকটি Practical Example:
+const wrapInArray = <T>(value: T): T[] => {
+return [value];
+};
+
+const stringArr = wrapInArray("ABC");
+const numberArr = wrapInArray(123);
+
+stringArr.map((item) => item.toUpperCase());
+একই Function বিভিন্ন Type-এর জন্য কাজ করছে এবং Type Safety বজায় রাখছে।
+18. Generic API Response
+WHY: বিভিন্ন API থেকে আসা Data-এর জন্য একই Response Structure পুনরায় ব্যবহার করতে।
+WHAT: Generic Interface ব্যবহার করে reusable API Response Type তৈরি করা।
+HOW:
+interface ApiResponse<T> {
+statusCode: number;
+success: boolean;
+data: T;
+}
+
+interface User {
+name: string;
+role: string;
+}
+
+const userRes: ApiResponse<User> = {
+statusCode: 200,
+success: true,
+data: {
+name: "Fatima",
+role: "Developer",
+},
+};
+এখানে একই ApiResponse Interface বিভিন্ন Data Type-এর জন্য ব্যবহার করা যাবে।
+19. Async/Await & Error Handling
+WHY: API থেকে Data Fetch করার সময় asynchronous operation এবং সম্ভাব্য Error সঠিকভাবে handle করতে।
+WHAT:
+async → Function-কে asynchronous করে।
+await → Promise settle হওয়ার জন্য অপেক্ষা করে।
+try/catch → Error handle করে।
+instanceof Error → Error object যাচাই করে।
+HOW:
+const fetchUser = async () => {
+try {
+const res = await fetch("/api/v1/some-endpoint");
+
+const data = await res.json();
+
+if (!res.ok || !data.success) {
+throw new Error(data.message);
+}
+
+return data.data;
+} catch (error: unknown) {
+if (error instanceof Error) {
+console.error(error.message);
+} else {
+console.error("Something Went Wrong");
+}
+}
+};
+এখানে API request, response checking এবং error handling একসঙ্গে করা হয়েছে।
+মনে রাখবে: TypeScript-এর Type System development-এর সময় ভুল শনাক্ত করতে সাহায্য করে। কিন্তু API থেকে আসা Data-এর Runtime Validation-এর জন্য আলাদা validation ব্যবহার করা প্রয়োজন।
