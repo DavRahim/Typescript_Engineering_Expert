@@ -60,6 +60,7 @@ const printAll = (x: string | string[] | null) => {
 // };
 
 printAll("sdfs");
+
 //* Equality
 const compare = (x: number | string, y: number | boolean) => {
   if (x === y) {

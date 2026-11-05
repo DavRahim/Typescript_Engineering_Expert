@@ -1,7 +1,6 @@
 // * Type assertion
 
 //* "as" syntax
-
 type Status = "pending" | "approved" | "rejected";
 const someStatus: string = "pending";
 

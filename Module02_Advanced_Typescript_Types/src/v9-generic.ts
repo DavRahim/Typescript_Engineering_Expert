@@ -1,4 +1,4 @@
-const wrapInArray = <T>(value: T) => {
+const wrapInArray = <T>(value: T): T[] => {
   return [value];
 };
 

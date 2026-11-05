@@ -183,6 +183,7 @@ prefix → "/api/v2"
 configuration.port = 3000;
 
 // Error: Cannot assign to readonly property
+
 11. typeof Operator
 WHY: কোনো value-এর runtime type পরীক্ষা করতে।
 WHAT: typeof হলো JavaScript-এর একটি operator, যা value-এর type সম্পর্কে string return করে।
@@ -193,6 +194,7 @@ console.log(typeof x); // "number"
 
 console.log(typeof "Hello"); // "string"
 console.log(typeof true); // "boolean"
+
 12. Type Guard & Type Narrowing
 WHY: Union Type-এর মধ্যে কোন নির্দিষ্ট type নিয়ে কাজ করছি, তা নিশ্চিত করতে।
 WHAT: Condition ব্যবহার করে variable-এর সম্ভাব্য type সীমিত করাকে Type Narrowing বলে। Type Guard এর জন্য বিভিন্ন check ব্যবহার করা যায়।
@@ -208,6 +210,7 @@ return value;
 print("fatima");
 print(123);
 এখানে typeof ব্যবহার করে Type Narrowing করা হয়েছে।
+
 13. Equality Narrowing
 WHY: দুটি value সমান কি না অথবা কোনো value null কি না যাচাই করে type narrow করতে।
 WHAT: === এবং !== ব্যবহার করে TypeScript-এর type narrowing করা।
@@ -239,6 +242,7 @@ animal.fly();
 animal.swim();
 }
 }
+
 15. instanceof Operator
 WHY: কোনো Object নির্দিষ্ট Class-এর instance কি না যাচাই করতে।
 WHAT: instanceof হলো JavaScript-এর একটি runtime operator।
@@ -256,6 +260,8 @@ console.log(date.toISOString());
 
 showDate("12-16-1971");
 showDate(new Date());
+
+
 16. Discriminated Union
 WHY: একাধিক Object Type-এর মধ্যে কোন নির্দিষ্ট Object নিয়ে কাজ করছি তা শনাক্ত করতে।
 WHAT: Common Literal Property ব্যবহার করে Union Type narrow করার পদ্ধতি।
@@ -280,6 +286,8 @@ console.log(shape.sideLength ** 2);
 }
 };
 এখানে kind হলো Discriminant Property।
+
+
 17. Generics
 WHY: একই Function বা Component বিভিন্ন Data Type-এর জন্য ব্যবহার করতে, Type Safety বজায় রেখে।
 WHAT: Generic হলো reusable type parameter ব্যবস্থা।
@@ -329,6 +337,7 @@ role: "Developer",
 },
 };
 এখানে একই ApiResponse Interface বিভিন্ন Data Type-এর জন্য ব্যবহার করা যাবে।
+
 19. Async/Await & Error Handling
 WHY: API থেকে Data Fetch করার সময় asynchronous operation এবং সম্ভাব্য Error সঠিকভাবে handle করতে।
 WHAT:
