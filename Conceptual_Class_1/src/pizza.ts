@@ -1,26 +1,21 @@
-type Topping = "cheese" | "olive" | "corn";
+export type Toppings = "cheese" | "olive" | "corn";
 
 export type Pizza = {
   name: string;
-  toppings: Topping[];
+  toppings: Toppings[];
 };
 
-const menu: Pizza[] = [
+export const menu: Pizza[] = [
   {
-    name: "pizza1",
+    name: "Pizza 1",
     toppings: ["cheese"],
   },
   {
-    name: "pizza2",
-    toppings: ["corn", "corn"],
-  },
-  {
-    name: "pizza3",
-    toppings: ["corn", "cheese"],
+    name: "Pizza 2",
+    toppings: ["corn", "olive"],
   },
 ];
 
-
-const makePizza = (name: string, toppings:[]){
-    
-}
+export const makePizza = (name: string, ...toppings: Toppings[]) => {
+  return { name, toppings };
+};
