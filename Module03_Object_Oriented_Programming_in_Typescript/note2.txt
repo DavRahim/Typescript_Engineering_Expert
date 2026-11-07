@@ -1,0 +1,333 @@
+TypeScript – Module 3 | Utility Types & Object-Oriented Programming (OOP)
+Part 1: TypeScript Utility Types
+Utility Types কী এবং কেন প্রয়োজন?
+ধরো, আমাদের একটি User Interface আছে। কিন্তু Application-এর বিভিন্ন জায়গায় User-এর সব Property প্রয়োজন হয় না। কোথাও কিছু Property Optional করতে হয়, কোথাও নির্দিষ্ট Property নিতে হয়, আবার কোথাও কিছু Property বাদ দিতে হয়।
+এই কাজগুলো সহজ করার জন্য TypeScript-এর Built-in Utility Types ব্যবহার করা হয়।
+
+1. Partial<T> — Make All Properties Optional
+WHY: কোনো Object Update করার সময় সব Property পাঠানোর প্রয়োজন হয় না।
+WHAT: Partial<T> একটি Type-এর সব Property Optional করে দেয়।
+HOW:
+interface User {
+id: string;
+name: string;
+email: string;
+}
+
+type UpdateUser = Partial<User>;
+এখন UpdateUser-এ শুধু name অথবা শুধু email দিলেও হবে।
+Real-world Use: Profile Update, PATCH API, Settings Update।
+
+2. Required<T> — Make All Properties Required
+WHY: কোনো Configuration বা Object-এর সব Property বাধ্যতামূলক করতে।
+WHAT: Required<T> সব Optional Property-কে Required করে।
+HOW:
+interface Config {
+apiKey?: string;
+timeout?: number;
+}
+
+type AppConfig = Required<Config>;
+এখন apiKey এবং timeout দুটিই দিতে হবে।
+Real-world Use: Application Configuration, Database Settings।
+
+3. Pick<T, K> — Select Specific Properties
+WHY: বড় Interface থেকে শুধু প্রয়োজনীয় Property নিয়ে নতুন Type তৈরি করতে।
+WHAT: Pick<T, K> নির্দিষ্ট Property Select করে।
+HOW:
+interface Product {
+id: number;
+name: string;
+price: number;
+description: string;
+}
+
+type ProductPreview = Pick<
+Product,
+"name" | "description"
+>;
+এখানে শুধু name এবং description নেওয়া হয়েছে।
+Real-world Use: Product Card, Preview Section, API Response।
+4. Omit<T, K> — Exclude Specific Properties
+WHY: Sensitive অথবা অপ্রয়োজনীয় Property কোনো Public Type-এ না রাখতে।
+WHAT: Omit<T, K> নির্দিষ্ট Property বাদ দিয়ে নতুন Type তৈরি করে।
+HOW:
+interface Employee {
+id: number;
+name: string;
+salary: number;
+nid: string;
+}
+
+type PublicEmployee = Omit<
+Employee,
+"salary" | "nid"
+>;
+এখানে salary এবং nid বাদ দেওয়া হয়েছে।
+Real-world Use: Public User Profile, API DTO, Data Transfer।
+মনে রাখতে হবে, Omit শুধু Type পরিবর্তন করে; Runtime Object থেকে Data নিজে Remove করে না।
+5. Record<K, V> — Create Key-Value Object Types
+WHY: নির্দিষ্ট Key এবং Value Type অনুযায়ী Object তৈরি করতে।
+WHAT: Record<K, V> Object-এর Key ও Value-এর Type নির্ধারণ করে।
+HOW:
+type Environment =
+| "development"
+| "staging"
+| "production";
+
+const apiUrls: Record<Environment, string> = {
+development: "http://localhost:3000",
+staging: "https://staging.api.com",
+production: "https://api.com"
+};
+এখানে প্রতিটি Environment-এর জন্য একটি String URL দিতে হবে।
+Real-world Use: API Configuration, Role Permissions, Status Mapping।
+Quick Revision:
+Partial → সব Property Optional করে।
+Required → সব Property Required করে।
+Pick → নির্দিষ্ট Property নির্বাচন করে।
+Omit → নির্দিষ্ট Property বাদ দেয়।
+Record → Key-Value Object Type তৈরি করে।
+Part 2: Object-Oriented Programming (OOP)
+OOP কী এবং কেন প্রয়োজন?
+WHY: বড় Software Application-এ অনেক Data, Function এবং Business Logic থাকে। এগুলো Organize, Reuse এবং Maintain করা কঠিন হয়ে যায়।
+WHAT: Object-Oriented Programming হলো একটি Programming Paradigm, যেখানে Class ও Object-এর মাধ্যমে Data এবং Behaviour Organize করা হয়।
+HOW: Class তৈরি করে তার Instance বা Object তৈরি করা হয়। প্রতিটি Object-এর নিজস্ব Properties এবং Methods থাকতে পারে।
+6. Class & Object
+Class: Object তৈরির Blueprint বা Template।
+Object: Class-এর তৈরি Instance।
+class Employee {
+constructor(
+public name: string,
+public salary: number
+) {}
+
+getDetails() {
+return `${this.name} earns ${this.salary}`;
+}
+}
+
+const employee = new Employee("Fatima", 22000);
+
+console.log(employee.getDetails());
+এখানে:
+Employee → Class
+employee → Object
+name, salary → Properties
+getDetails() → Method
+constructor → Object Initialize করে
+this → Current Object-কে Reference করে
+Real-world Use: User, Product, Employee, Order Management।
+7. instanceof — Runtime Object Checking
+WHY: কোনো Object নির্দিষ্ট Class-এর Instance কি না যাচাই করতে।
+WHAT: instanceof একটি JavaScript Runtime Operator।
+HOW:
+console.log(employee instanceof Employee);
+// true
+এটি Runtime-এ Object-এর Prototype Chain পরীক্ষা করে।
+Part 3: Four Pillars of OOP
+OOP-এর সবচেয়ে গুরুত্বপূর্ণ চারটি Core Concept-কে Four Pillars বলা হয়।
+8. Encapsulation — Protect Internal Data
+WHY: Object-এর Internal Data যেন বাইরে থেকে ইচ্ছামতো পরিবর্তন করা না যায়।
+WHAT: Data এবং সেই Data পরিচালনার Methods একসঙ্গে রাখা এবং Access Control-এর মাধ্যমে Internal State Protect করাকে Encapsulation বলে।
+HOW:
+class BankAccount {
+private balance = 0;
+
+deposit(amount: number) {
+if (amount <= 0) {
+throw new Error("Invalid amount");
+}
+
+this.balance += amount;
+}
+
+getBalance() {
+return this.balance;
+}
+}
+
+const account = new BankAccount();
+
+account.deposit(5000);
+
+console.log(account.getBalance());
+এখানে private থাকার কারণে বাইরে থেকে সরাসরি Balance পরিবর্তন করা যাবে না।
+Important Concepts:
+public → যেকোনো জায়গা থেকে Access করা যায়।
+private → শুধু Declaring Class-এর ভিতরে Access করা যায়।
+protected → Class এবং Subclass-এর ভিতরে Access করা যায়।
+readonly → Initialization-এর পর পরিবর্তন করা যায় না।
+Real-world Use: Bank Account, User Data, Salary Management।
+9. Inheritance — Code Reusability
+WHY: একই ধরনের Class-এর Common Properties এবং Methods বারবার না লিখে Reuse করতে।
+WHAT: একটি Child Class অন্য Parent Class-এর Properties ও Methods Inherit করতে পারে।
+HOW:
+class Employee {
+constructor(
+public name: string,
+protected salary: number
+) {}
+
+describe() {
+return `${this.name} earns ${this.salary}`;
+}
+}
+
+class Manager extends Employee {
+constructor(
+name: string,
+salary: number,
+public teamSize: number
+) {
+super(name, salary);
+}
+
+manageTeam() {
+return `${this.name} manages ${this.teamSize} people`;
+}
+}
+এখানে:
+Employee → Parent Class
+Manager → Child Class
+extends → Inheritance
+super() → Parent Constructor Call
+protected → Child Class থেকেও Access করা যায়।
+Real-world Example:
+Admin is a User.
+Manager is an Employee.
+Car is a Vehicle.
+এটি একটি "Is-a" Relationship।
+10. Polymorphism — Many Forms
+WHY: একই Method ব্যবহার করে বিভিন্ন Object-এর জন্য ভিন্ন Behaviour তৈরি করতে।
+WHAT: Polymorphism অর্থ Many Forms। একই Method বিভিন্ন Class-এ ভিন্নভাবে কাজ করতে পারে।
+HOW:
+class Employee {
+constructor(public salary: number) {}
+
+calculatePay() {
+return this.salary;
+}
+}
+
+class Manager extends Employee {
+override calculatePay() {
+return this.salary + 5000;
+}
+}
+
+class Developer extends Employee {
+override calculatePay() {
+return this.salary + 3000;
+}
+}
+
+const employees: Employee[] = [
+new Employee(20000),
+new Manager(20000),
+new Developer(20000)
+];
+
+employees.forEach(employee => {
+console.log(employee.calculatePay());
+});
+এখানে একই calculatePay() Method, কিন্তু Object অনুযায়ী আলাদা Result পাওয়া যাচ্ছে।
+Important Concept:
+Method Overriding → Child Class-এ Parent Method-এর Implementation পরিবর্তন।
+Runtime Polymorphism → Actual Object অনুযায়ী Method Execute হওয়া।
+Real-world Use: Payment Systems, Notification Systems, Employee Salary Calculation।
+11. Abstraction — Hide Complexity
+WHY: Complex Implementation Details Hide করে শুধু প্রয়োজনীয় Functionality প্রকাশ করতে।
+WHAT: Abstraction হলো Essential Features প্রকাশ করা এবং Internal Implementation Details Hide করা।
+HOW:
+abstract class Payment {
+abstract pay(amount: number): void;
+}
+
+class BkashPayment extends Payment {
+pay(amount: number) {
+console.log(`Paid ${amount} using Bkash`);
+}
+}
+
+class CardPayment extends Payment {
+pay(amount: number) {
+console.log(`Paid ${amount} using Card`);
+}
+}
+এখানে:
+abstract class → সরাসরি Object তৈরি করা যায় না।
+abstract method → Child Class-কে Implement করতে হয়।
+BkashPayment ও CardPayment → নিজস্ব Implementation দিয়েছে।
+Real-world Example: ATM ব্যবহার করে টাকা তোলার সময় আমাদের Internal Banking Process জানতে হয় না।
+Part 4: More Important OOP Concepts
+12. Getter & Setter
+WHY: Property Read এবং Update করার সময় Validation বা Custom Logic প্রয়োগ করতে।
+WHAT: Getter Property Read করে এবং Setter Property Update করে।
+class Employee {
+constructor(private _salary: number) {}
+
+get salary() {
+return this._salary;
+}
+
+set salary(value: number) {
+if (value < 0) {
+throw new Error("Invalid salary");
+}
+
+this._salary = value;
+}
+}
+13. Composition
+WHY: বড় Class তৈরি না করে ছোট ছোট Object একত্র করে Complex Object তৈরি করতে।
+WHAT: একটি Object-এর মধ্যে অন্য Object ব্যবহার করে Functionality তৈরি করাকে Composition বলে।
+HOW:
+class Engine {
+start() {
+return "Engine started";
+}
+}
+
+class Car {
+constructor(private engine: Engine) {}
+
+startCar() {
+return this.engine.start();
+}
+}
+এখানে Car-এর একটি Engine আছে।
+এটি একটি "Has-a" Relationship।
+Real-world Example: Car has an Engine, User has a Profile, Order has OrderItems।
+14. Static Members
+WHY: এমন Property বা Method তৈরি করতে, যা Object-এর Instance নয়, Class-এর সঙ্গে সম্পর্কিত।
+WHAT: static Member সরাসরি Class-এর মাধ্যমে Access করা যায়।
+class MathHelper {
+static square(number: number) {
+return number * number;
+}
+}
+
+console.log(MathHelper.square(5));
+15. Dependency Injection
+WHY: কোনো Class যেন নিজেই সব Dependency তৈরি না করে; প্রয়োজনীয় Dependency বাইরে থেকে গ্রহণ করতে পারে।
+WHAT: Dependency Injection হলো একটি Design Technique, যেখানে প্রয়োজনীয় Dependency বাইরে থেকে সরবরাহ করা হয়।
+HOW:
+interface Logger {
+log(message: string): void;
+}
+
+class ConsoleLogger implements Logger {
+log(message: string) {
+console.log(message);
+}
+}
+
+class UserService {
+constructor(private logger: Logger) {}
+
+createUser() {
+this.logger.log("User created");
+}
+}
+Real-world Use: Backend Services, Database Connections, Testing, Payment Aerodym Infinityপোস্টটি থেকে উপকার হলে কমেন্টে জানাবেন। আপনাদের ফিডব্যাক আমার শেখার আগ্রহ আরও বাড়িয়ে দেবে। 😊

@@ -46,4 +46,4 @@ class Developer extends Employee {
 }
 
 const developer = new Developer("Kalal", 50000);
-console.log(developer.getResources());
+console.log(developer.registerEntryTime());
