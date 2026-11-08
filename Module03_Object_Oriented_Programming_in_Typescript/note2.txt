@@ -93,8 +93,8 @@ Required → সব Property Required করে।
 Pick → নির্দিষ্ট Property নির্বাচন করে।
 Omit → নির্দিষ্ট Property বাদ দেয়।
 Record → Key-Value Object Type তৈরি করে।
-Part 2: Object-Oriented Programming (OOP)
 
+Part 2: Object-Oriented Programming (OOP)
 
 OOP কী এবং কেন প্রয়োজন?
 WHY: বড় Software Application-এ অনেক Data, Function এবং Business Logic থাকে। এগুলো Organize, Reuse এবং Maintain করা কঠিন হয়ে যায়।
