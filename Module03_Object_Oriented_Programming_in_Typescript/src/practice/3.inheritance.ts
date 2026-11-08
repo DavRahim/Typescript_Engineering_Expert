@@ -12,7 +12,7 @@ class Employee {
 
   //   salaryWithBonus(bonus: number) {
   //     this._baseSalary += bonus;
-  //   }
+  //   }S
   set salaryWithBonus(bonus: number) {
     this._baseSalary += bonus;
   }
