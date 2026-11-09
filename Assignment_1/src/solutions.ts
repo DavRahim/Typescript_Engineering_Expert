@@ -17,9 +17,9 @@ const multiplyValue = (value1: number, value2?: number): number => {
 // console.log(multiplyValue(0, 6));
 // console.log(multiplyValue(0, 6));
 
-type Tvalue = string | number | boolean;
+type TValue = string | number | boolean;
 
-const processInput = (value: Tvalue) => {
+const processInput = (value: TValue) => {
   if (typeof value === "string") {
     return value.toLowerCase().trim();
   }
