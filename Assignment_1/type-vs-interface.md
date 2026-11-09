@@ -1,5 +1,3 @@
-# What are the core differences between type aliases and interface in TypeScript? When should you choose one over the other?
-
 # TypeScript-এ `type` বনাম `interface`: কোনটি কখন ব্যবহার করবেন?
 
 ## ভূমিকা
@@ -15,19 +13,21 @@ type ID = string | number;
 type Point = [number, number];
 
 interface User {
-  id: number;
   name: string;
+  id: number;
+  role: "admin" | "member";
 }
 ```
 
 দ্বিতীয়ত, একই নামে দুটি `interface` লিখলে TypeScript সেগুলোকে জুড়ে দেয়, একে declaration merging বলে। কিন্তু `type`-এ একই নাম দুইবার লিখলে error হয়।
 
 ```typescript
-interface Window {
-  title: string;
+interface Employee {
+  name: string;
 }
-interface Window {
-  version: number;
+
+interface Employee {
+  id: number;
 } // দুটো মিলে একটি হবে
 ```
 

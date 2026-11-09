@@ -35,15 +35,16 @@ const showError = (err: Error | string) => {
 কোনো object-এ নির্দিষ্ট property আছে কি না, তা দেখে type আলাদা করা যায়।
 
 ```typescript
-type Car = { drive: () => void };
-type Boat = { sail: () => void };
+type Bird = { fly: () => void };
+type Fish = { swim: () => void };
 
-const move = (vehicle: Car | Boat) => {
-  if ("drive" in vehicle) {
-    vehicle.drive();
-  } else {
-    vehicle.sail();
+const move = (animal: Bird | Fish) => {
+  if ("fly" in animal) {
+    animal.fly();
+    return;
   }
+
+  animal.swim();
 };
 ```
 
