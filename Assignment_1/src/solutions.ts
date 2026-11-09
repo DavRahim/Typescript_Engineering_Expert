@@ -22,26 +22,6 @@ const multiplyValue = (value: number, multiplier: number = 2): number => {
 
 // * Problem 2
 
-// type Tvalue = string | number | boolean;
-
-// const processInput = (value: Tvalue) => {
-//   if (typeof value === "string") {
-//     return value.toLowerCase().trim();
-//   }
-
-//   if (typeof value === "number") {
-//     return value * 10;
-//   }
-
-//   if (typeof value === "boolean") {
-//     if (value) {
-//       return "Active";
-//     } else {
-//       return "Inactive";
-//     }
-//   }
-// };
-
 type InputValue = string | number | boolean;
 type OutputValue = string | number;
 
