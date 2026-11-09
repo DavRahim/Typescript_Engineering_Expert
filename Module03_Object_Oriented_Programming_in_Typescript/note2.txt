@@ -275,6 +275,8 @@ abstract class → সরাসরি Object তৈরি করা যায় �
 abstract method → Child Class-কে Implement করতে হয়।
 BkashPayment ও CardPayment → নিজস্ব Implementation দিয়েছে।
 Real-world Example: ATM ব্যবহার করে টাকা তোলার সময় আমাদের Internal Banking Process জানতে হয় না।
+
+
 Part 4: More Important OOP Concepts
 
 12. Getter & Setter
@@ -327,6 +329,7 @@ return number * number;
 }
 
 console.log(MathHelper.square(5));
+
 15. Dependency Injection
 WHY: কোনো Class যেন নিজেই সব Dependency তৈরি না করে; প্রয়োজনীয় Dependency বাইরে থেকে গ্রহণ করতে পারে।
 WHAT: Dependency Injection হলো একটি Design Technique, যেখানে প্রয়োজনীয় Dependency বাইরে থেকে সরবরাহ করা হয়।

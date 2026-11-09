@@ -1,13 +1,16 @@
-console.log("hello world");
+// * Problem 1
+// const multiplyValue = (value1: number, value2?: number): number => {
+//   if (value1 && value2) {
+//     return value1 * value2;
+//   } else if (value2 === 0) {
+//     return 0;
+//   } else {
+//     return value1 * 2;
+//   }
+// };
 
-const multiplyValue = (value1: number, value2?: number): number => {
-  if (value1 && value2) {
-    return value1 * value2;
-  } else if (value2 === 0) {
-    return 0;
-  } else {
-    return value1 * 2;
-  }
+const multiplyValue = (value: number, multiplier: number = 2): number => {
+  return value * multiplier;
 };
 
 // console.log(multiplyValue(10));
@@ -17,24 +20,18 @@ const multiplyValue = (value1: number, value2?: number): number => {
 // console.log(multiplyValue(0, 6));
 // console.log(multiplyValue(0, 6));
 
-type TValue = string | number | boolean;
+type Tvalue = string | number | boolean;
 
-const processInput = (value: TValue) => {
+const processInput = (value: Tvalue) => {
   if (typeof value === "string") {
-    return value.toLowerCase().trim();
+    return value.trim().toLowerCase();
   }
 
   if (typeof value === "number") {
     return value * 10;
   }
 
-  if (typeof value === "boolean") {
-    if (value) {
-      return "Active";
-    } else {
-      return "Inactive";
-    }
-  }
+  return value ? "Active" : "Inactive";
 };
 
 // console.log(processInput("  TypeScript  "));
@@ -42,21 +39,43 @@ const processInput = (value: TValue) => {
 // console.log(processInput(true));
 // console.log(processInput(false));
 
-type TLatLog = [number, number, string];
+//* Problem 3
 
-const formatCoordinate = (value: TLatLog) => {
-  return `Location: ${value[2]} (${value[0]}, ${value[1]})`;
+// type TLatLog = [number, number, string];
+
+// const formatCoordinate = (value: TLatLog) => {
+//   return `Location: ${value[2]} (${value[0]}, ${value[1]})`;
+// };
+
+type Coordinate = readonly [number, number, string];
+
+const formatCoordinate = (value: Coordinate): string => {
+  const [latitude, longitude, locationName] = value;
+  return `Location: ${locationName} (${latitude}, ${longitude})`;
 };
 
 // console.log(formatCoordinate([23.81, 90.41, "Dhaka"]));
 // console.log(formatCoordinate([22.35, 91.78, "Chittagong"]));
 
+//* Problem 4
+
+// const concatenateArrays = <T>(...arrays: T[][]): T[] => {
+//   return arrays.flat();
+// };
+
 const concatenateArrays = <T>(...arrays: T[][]): T[] => {
-  return arrays.flat();
+  return ([] as T[]).concat(...arrays);
 };
+
+// const concatenateArrays = <T>(...arrays: T[][]): T[] => {
+//   return arrays.reduce<T[]>((acc, arr) => [...acc, ...arr], []);
+// };
 
 // console.log(concatenateArrays(["a", "b"], ["c", "d"]));
 // console.log(concatenateArrays([1, 2], [3, 4], [5]));
+// console.log(concatenateArrays([[1, 2], [3, 4], [5]]));
+
+// * Problem 5
 
 interface Course {
   title: string;
@@ -64,12 +83,13 @@ interface Course {
   isPublished: boolean;
 }
 
-const getPopularCourses = (courses: Course[], minStudent: number) => {
-  const newCourse = courses.filter(
-    (course: Course) => course.students >= minStudent && course.isPublished,
+const getPopularCourses = (
+  courses: Course[],
+  minStudents: number,
+): Course[] => {
+  return courses.filter(
+    (course) => course.isPublished && course.students >= minStudents,
   );
-
-  return newCourse;
 };
 
 const courses = [
@@ -81,9 +101,10 @@ const courses = [
 
 // console.log(getPopularCourses(courses, 80));
 
-const pluckValues = <T, K extends keyof T>(items: T[], key: K) => {
-  const getProperty = items.map((item: T) => item[key]);
-  return getProperty;
+//* Problem 6
+
+const pluckValues = <T, K extends keyof T>(items: T[], key: K): T[K][] => {
+  return items.map((item) => item[key]);
 };
 
 const users = [
@@ -95,13 +116,15 @@ const users = [
 // console.log(pluckValues(users, "role"));
 // console.log(pluckValues(users, "id"));
 
+//* Problem: 7
+
 class Employee {
   constructor(
     protected name: string,
     private baseSalary: number,
   ) {}
 
-  getDetails() {
+  getDetails(): string {
     return `Employee: ${this.name}, Base Salary: ${this.baseSalary}`;
   }
 }
@@ -115,8 +138,8 @@ class Manager extends Employee {
     super(name, baseSalary);
   }
 
-  getRoleInfo() {
-    return `Manager Of ${this.department}: ${this.name}`;
+  getRoleInfo(): string {
+    return `Manager of ${this.department}: ${this.name}`;
   }
 }
 
@@ -124,17 +147,32 @@ const manager = new Manager("Alice", 50000, "Engineering");
 // console.log(manager.getDetails());
 // console.log(manager.getRoleInfo());
 
-const validateAgeAsync = async (age: number): Promise<string> => {
-  return new Promise((res, rej) => {
+//* Problem 8
+
+// const delay = (ms: number): Promise<void> =>
+//   new Promise((resolve) => setTimeout(resolve, ms));
+
+// const validateAgeAsync = async (age: number): Promise<string> => {
+//   if (age < 18) {
+//     throw new Error("Access Denied: Must be 18 or older");
+//   }
+
+//   await delay(1000);
+//   return "Access Granted";
+// };
+
+const validateAgeAsync = (age: number): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    if (age < 18) {
+      reject(new Error("Access Denied: Must be 18 or older"));
+      return;
+    }
+
     setTimeout(() => {
-      if (age >= 18) {
-        return res("Access Granted");
-      } else {
-        return rej(new Error("Access Denied: Must be 18 or older"));
-      }
+      resolve("Access Granted");
     }, 1000);
   });
 };
 
-console.log(await validateAgeAsync(20));
+console.log(await validateAgeAsync(18));
 console.log(await validateAgeAsync(15));
