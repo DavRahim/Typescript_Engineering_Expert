@@ -28,9 +28,9 @@ Each blog includes a title, introduction, body with code examples, and a conclus
 ```
 .
 ├── solution.ts
-├── README.md
 ├── type-vs-interface.md
-└── type-narrowing.md
+├── type-narrowing.md
+└── README.md
 ```
 
 ## Language
