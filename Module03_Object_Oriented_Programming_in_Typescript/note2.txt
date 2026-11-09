@@ -67,7 +67,7 @@ Employee,
 >;
 এখানে salary এবং nid বাদ দেওয়া হয়েছে।
 Real-world Use: Public User Profile, API DTO, Data Transfer।
-মনে রাখতে হবে, Omit শুধু Type পরিবর্তন করে; Runtime Object থেকে Data নিজে Remove করে না।\
+মনে রাখতে হবে, Omit শুধু Type পরিবর্তন করে; Runtime Object থেকে Data নিজে Remove করে না।
 
 5. Record<K, V> — Create Key-Value Object Types
 WHY: নির্দিষ্ট Key এবং Value Type অনুযায়ী Object তৈরি করতে।
@@ -94,7 +94,9 @@ Pick → নির্দিষ্ট Property নির্বাচন করে
 Omit → নির্দিষ্ট Property বাদ দেয়।
 Record → Key-Value Object Type তৈরি করে।
 
+
 Part 2: Object-Oriented Programming (OOP)
+
 
 OOP কী এবং কেন প্রয়োজন?
 WHY: বড় Software Application-এ অনেক Data, Function এবং Business Logic থাকে। এগুলো Organize, Reuse এবং Maintain করা কঠিন হয়ে যায়।
